@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
+const { platform } = require('os');
 const path = require('path');
 
 function createWindow() {
@@ -60,3 +61,13 @@ app.whenReady().then(() => {
     }
   });
 });
+
+if (process.platform === 'win32') {
+  //应用是否打包
+  if (app.isPackaged) {
+    //设置开机启动
+    app.setLoginItemSettings({
+      openAtLogin: true
+    });
+  }
+}

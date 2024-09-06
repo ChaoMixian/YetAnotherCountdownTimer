@@ -6,7 +6,9 @@
   "scripts": {
     "start": "electron .",
     "test": "electron --trace-warnings .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build-for-windows": "electron-builder -w",
+    "build-for-linux": "electron-builder -l"
   },
   "build": {
     "appId": "com.chaomixian.yetanothercountdowntimer",
@@ -20,12 +22,12 @@
       "buildResources": "assets"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": ["AppImage"],
       "icon": "assets/icon.png",
       "category": "Utility"
     },
     "win": {
-      "target": ["nsis"],
+      "target": ["nsis", "portable"],
       "icon": "assets/icon.ico"
     }
   },
