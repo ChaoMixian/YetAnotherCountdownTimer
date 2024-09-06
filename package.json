@@ -1,0 +1,27 @@
+{
+  "name": "yet-another-countdown-timer",
+  "version": "1.0.0",
+  "description": "Yet another desktop countdown timer.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "electron --trace-warnings ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChaoMixian/YetAnotherCountdownTimer.git"
+  },
+  "keywords": [
+    "countdown",
+    "timer"
+  ],
+  "author": "ChaoMixian",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ChaoMixian/YetAnotherCountdownTimer/issues"
+  },
+  "homepage": "https://github.com/ChaoMixian/YetAnotherCountdownTimer#readme",
+  "devDependencies": {
+    "electron": "^32.0.2"
+  }
+}
