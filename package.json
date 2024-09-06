@@ -16,11 +16,9 @@
     "files": [
       "src/**/*",
       "webfonts/", 
-      "src/main.js"
+      "src/main.js",
+      "assets/"
     ],
-    "directories": {
-      "buildResources": "assets"
-    },
     "linux": {
       "target": ["AppImage"],
       "icon": "assets/icon.png",
