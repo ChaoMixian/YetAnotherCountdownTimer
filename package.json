@@ -5,7 +5,29 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "electron --trace-warnings ."
+    "test": "electron --trace-warnings .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.chaomixian.yetanothercountdowntimer",
+    "productName": "YetAnotherCountdownTimer", 
+    "files": [
+      "src/**/*",
+      "webfonts/", 
+      "src/main.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "assets/icon.png",
+      "category": "Utility"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "assets/icon.ico"
+    }
   },
   "repository": {
     "type": "git",
@@ -22,6 +44,7 @@
   },
   "homepage": "https://github.com/ChaoMixian/YetAnotherCountdownTimer#readme",
   "devDependencies": {
-    "electron": "^32.0.2"
+    "electron": "^32.0.2",
+    "electron-builder": "^25.0.5"
   }
 }

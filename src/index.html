@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Countdown Timer</title>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-      }
-      #timer {
-        font-size: 48px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="timer">00:00:00</div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YACT</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="all.min.css">
+</head>
+<body>
+    <div id="controls">
+      <button id="toggle-top"><i class="fas fa-thumbtack"></i></button> <!-- 置顶图标 -->
+      <button id="close"><i class="fas fa-times"></i></button> <!-- 关闭图标 -->
+    </div>
+    <h1>距离首考还有</h1>
+    <div id="countdown"></div>
     <script src="renderer.js"></script>
-  </body>
+</body>
 </html>
-

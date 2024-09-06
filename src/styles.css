@@ -1,0 +1,72 @@
+body {
+    background-color: rgba(196, 196, 196, 0.3); /* 半透明背景 */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 30px;
+    margin: 0;
+}
+
+h1 {
+    font-size: 40px;
+    color: #434d58;
+}
+
+#countdown {
+    font-size: 34px;
+    line-height: 1.5;
+    /*white-space: pre-wrap;  确保空白字符（包括换行）被尊重 */
+    color: #fff; /* 设置字体颜色 */
+    opacity: 0.8; /* 设置半透明度 */
+}
+
+#controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+button {
+    background-color: transparent; /* 背景透明 */
+    border: none;
+    color: #fff;
+    font-size: 20px; /* 图标大小 */
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: #ddd; /* 鼠标悬停时颜色 */
+}
+
+span {
+    display: inline;
+}
+
+/* 确保父容器不换行 */
+.countdown {
+    display: inline-block;  /* 保证它是内联块 */
+    white-space: nowrap;    /* 禁止换行 */
+    text-align: left;       /* 左对齐 */
+    width: 95%;            /* 确保容器占满并保持左对齐 */
+}
+
+/* 颜色样式 */
+.days {
+    color: red;
+}
+
+.weeks {
+    color: green;
+}
+
+.hours {
+    color: blue;
+}
+
+.minutes {
+    color: orange;
+}
+
+.seconds {
+    color: purple;
+}
