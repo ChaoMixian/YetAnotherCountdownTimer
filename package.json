@@ -1,6 +1,6 @@
 {
   "name": "yet-another-countdown-timer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yet another desktop countdown timer.",
   "main": "src/main.js",
   "scripts": {
@@ -12,20 +12,25 @@
   },
   "build": {
     "appId": "com.chaomixian.yetanothercountdowntimer",
-    "productName": "YetAnotherCountdownTimer", 
+    "productName": "YetAnotherCountdownTimer",
     "files": [
       "src/**/*",
-      "webfonts/", 
+      "webfonts/",
       "src/main.js",
       "assets/"
     ],
     "linux": {
-      "target": ["AppImage"],
+      "target": [
+        "AppImage"
+      ],
       "icon": "assets/icon.png",
       "category": "Utility"
     },
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "assets/icon.ico"
     }
   },
@@ -46,5 +51,9 @@
   "devDependencies": {
     "electron": "^32.0.2",
     "electron-builder": "^25.0.5"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.0",
+    "esm": "^3.2.25"
   }
 }

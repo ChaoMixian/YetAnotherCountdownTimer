@@ -1,5 +1,9 @@
 const { ipcRenderer } = require('electron');
 
+document.getElementById('settings').addEventListener('click', () => {
+  ipcRenderer.send('settings');
+});
+
 document.getElementById('toggle-top').addEventListener('click', () => {
     ipcRenderer.send('toggle-top');
 });

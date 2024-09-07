@@ -1,14 +1,15 @@
 const { app, BrowserWindow, ipcMain, screen, Menu, Tray } = require('electron');
-const { platform } = require('os');
 const path = require('path');
 
-const mainWindow = null
-let tray = null
+let mainWindow = null;
+let settingsWindow = null;
+let tray = null;
+let isAlwaysOnTop = false;
 
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
     width: 300,
-    height: 300,
+    height: 260,
     frame: false, // 去掉窗口边框
     transparent: true, // 使窗口透明
     webPreferences: {
@@ -21,6 +22,7 @@ function createWindow() {
   });
 
   mainWindow.loadFile('src/index.html');
+  mainWindow.setAlwaysOnTop(isAlwaysOnTop); // 默认不启用置顶
   mainWindow.setSkipTaskbar(true); // 隐藏任务栏图标
 
   // 获取屏幕的工作区域
@@ -37,75 +39,110 @@ function createWindow() {
     width: mainWindow.getBounds().width,
     height: mainWindow.getBounds().height
   });
+  
+}
 
+function createTray() {
   // 系统托盘： window 系统
   if (process.platform === 'win32') {
-    const icon = path.join(__dirname, '../assets/icon.ico')
-    // if (!app.isPackaged) {
-    //   const icon = path.join(__dirname, '../assets/icon.ico') // 指定托盘图标
-    // }else {
-    //   const icon = path.join(__dirname, 'icon.ico') // 指定托盘图标
-    // }
+    const icon = path.join(__dirname, '../assets/icon.ico');
 
     // 创建托盘实例
-    tray = new Tray(icon)
-    // 上面托盘实例创建了，需要定义托盘中的 Menu 选项。
-    // 这里使用 buildFromTemplate 静态方法。
-    // 第一个：开机自启动
-    // 第二个：退出
+    tray = new Tray(icon);
+
     let menu = Menu.buildFromTemplate([
       {
         label: '开机启动',
         checked: app.getLoginItemSettings().openAtLogin, // 获取当前自启动状态
         type: 'checkbox',
         click: () => {
-          // 点击事件：切换自启动
+          const openAtLogin = !app.getLoginItemSettings().openAtLogin;
           if (!app.isPackaged) { // 生成环境
             app.setLoginItemSettings({
-              openAtLogin: !app.getLoginItemSettings().openAtLogin,
+              openAtLogin,
               path: process.execPath
-            })
+            });
           } else {
-            app.setLoginItemSettings({
-              openAtLogin: !app.getLoginItemSettings().openAtLogin
-            })
+            app.setLoginItemSettings({ openAtLogin });
           }
         }
       },
       {
         label: '退出',
-        click: function () {
-          app.quit()
-          app.quit()
-        }
+        click: () => app.quit()
       }
-    ])
+    ]);
+
     // 鼠标悬停时显示的文本
-    tray.setToolTip('YACT')
+    tray.setToolTip('YACT');
     // 设置上下文菜单
-    tray.setContextMenu(menu)
-    // 绑定点击事件：控制 窗口显示和隐藏。
+    tray.setContextMenu(menu);
+    // 绑定点击事件：控制窗口显示和隐藏
     tray.on('click', () => {
-      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
-    })
+      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    });
+  }
+}
+
+// 设置窗口
+function createSettingsWindow() {
+  if (settingsWindow) {
+    settingsWindow.focus(); // 如果窗口已经存在，聚焦它
+    return;
   }
 
-  // 监听 IPC 事件
-  ipcMain.on('toggle-top', () => {
-    const isAlwaysOnTop = mainWindow.isAlwaysOnTop();
-    mainWindow.setAlwaysOnTop(!isAlwaysOnTop); // 切换置顶状态
-    mainWindow.webContents.send('update-top-icon', !isAlwaysOnTop); // 发送置顶状态到渲染进程
+  settingsWindow = new BrowserWindow({
+    width: 400,
+    height: 300,
+    resizable: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      enableRemoteModule: true,
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
   });
 
-  ipcMain.on('close', () => {
-    app.quit(); // 退出应用
+  settingsWindow.loadFile('src/settings.html'); // 加载设置窗口的 HTML 文件
+  settingsWindow.on('closed', () => {
+    settingsWindow = null; // 窗口关闭时销毁引用
   });
 }
 
+// 监听 IPC 事件
+ipcMain.on('settings', () => {
+  createSettingsWindow();
+});
+
+ipcMain.on('toggle-top', () => {
+  isAlwaysOnTop = mainWindow.isAlwaysOnTop();
+  mainWindow.setAlwaysOnTop(!isAlwaysOnTop); // 切换置顶状态
+  mainWindow.webContents.send('update-top-icon', !isAlwaysOnTop); // 发送置顶状态到渲染进程
+});
+
+ipcMain.on('close', () => {
+  app.quit(); // 退出应用
+});
+
+ipcMain.on('save-settings', (event, settings) => {
+  console.log('保存设置:', settings);
+
+  if (settings.autoStart) {
+    app.setLoginItemSettings({ openAtLogin: true });
+  } else {
+    app.setLoginItemSettings({ openAtLogin: false });
+  }
+
+  if (settingsWindow) {
+    settingsWindow.close(); // 保存后关闭设置窗口
+  }
+});
+
 if (process.platform === 'win32') {
-  //应用是否打包
+  // 应用是否打包
   if (app.isPackaged) {
-    //设置开机启动
+    // 设置开机启动
     app.setLoginItemSettings({
       openAtLogin: true
     });
@@ -114,7 +151,7 @@ if (process.platform === 'win32') {
 
 app.whenReady().then(() => {
   createWindow();
-  // createTray();
+  createTray();
 
   app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
