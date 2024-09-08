@@ -9,7 +9,7 @@ let isAlwaysOnTop = false;
 function createWindow() {
     mainWindow = new BrowserWindow({
     width: 300,
-    height: 260,
+    height: 200,
     frame: false, // 去掉窗口边框
     transparent: true, // 使窗口透明
     webPreferences: {
