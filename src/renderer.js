@@ -1,5 +1,7 @@
 const { ipcRenderer } = require('electron');
 
+let targetDate = '2024-11-03T00:00:00'; // 目标日期
+
 document.getElementById('settings').addEventListener('click', () => {
   ipcRenderer.send('settings');
 });
@@ -42,14 +44,29 @@ function calculateCountdown(targetDate) {
   }
 
 function updateCountdown() {
-  const targetDate = '2025-01-08T00:00:00'; // 目标日期
+  // const targetDate = '2024-11-03T00:00:00'; // 目标日期
   const countdownElement = document.getElementById('countdown');
   
   // countdownElement.textContent = calculateCountdown(targetDate);
   countdownElement.innerHTML = calculateCountdown(targetDate); // 使用 innerHTML 以解析 HTML 标签
 }
 
-setInterval(updateCountdown, 1000); // 每秒更新
+function updateTitle(title) {
+  const titleElement = document.getElementById('title');
+  titleElement.textContent = title;
+}
+
+setInterval(updateCountdown, 500); // 每秒更新
+
+// 接收主进程发送的配置数据
+ipcRenderer.on('load-title-config', (event, targetTitle) => {
+  updateTitle(targetTitle); // 更新页面标题
+});
+
+ipcRenderer.on('load-date-config', (event, Date) => {
+  // 使用接收到的 targetDate 替换硬编码的日期
+  targetDate = Date;
+});
 
 // 监听主进程发送的置顶状态消息
 ipcRenderer.on('update-top-icon', (event, isAlwaysOnTop) => {

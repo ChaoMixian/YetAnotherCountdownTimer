@@ -1,13 +1,72 @@
 const { app, BrowserWindow, ipcMain, screen, Menu, Tray } = require('electron');
+const { exec } = require('child_process');
 const path = require('path');
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+  app.quit()
+}
 
 let mainWindow = null;
 let settingsWindow = null;
 let tray = null;
 let isAlwaysOnTop = false;
 
+let Store;
+let store;
+
+function setAutoStart(enable) {
+  if (process.platform === 'win32') {
+    // Windows 平台设置开机自启
+    app.setLoginItemSettings({
+      openAtLogin: enable,
+      path: process.execPath
+    });
+  } else if (process.platform === 'linux') {
+    // Linux 平台放弃了
+  }
+}
+
+async function initConfig() {
+  // 动态加载 electron-store
+  Store = (await import('electron-store')).default;
+  // 获取应用版本
+  const appVersion = app.getVersion();
+  // 定义默认配置
+  let defaultConfig;  // 在函数作用域内声明 defaultConfig
+
+  // 默认配置
+  defaultConfig = {
+    version: appVersion,
+    autoStart: true,
+    targetTitle: '距离一模还有',
+    targetDate: '2024-11-03T00:00:00',
+  };
+
+  // 创建 Store 实例并设置默认值
+  store = new Store({
+    defaults: defaultConfig // 使用默认配置
+  });
+
+  // 检查配置中的 autoStart 值
+  const autoStart = store.get('autoStart', true); // 如果未设置，则默认为 true
+  setAutoStart(autoStart); // 根据配置设置开机自启
+
+  // 读取配置文件并发送给渲染进程
+  const targetTitle = store.get('targetTitle');
+  const targetDate = store.get('targetDate');
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('load-title-config', targetTitle);
+    mainWindow.webContents.send('load-date-config', targetDate);
+  });
+
+
+  console.log(store.get('version')); // 打印当前版本
+}
+
+
 function createWindow() {
-    mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 300,
     height: 200,
     frame: false, // 去掉窗口边框
@@ -39,7 +98,7 @@ function createWindow() {
     width: mainWindow.getBounds().width,
     height: mainWindow.getBounds().height
   });
-  
+
 }
 
 function createTray() {
@@ -125,6 +184,24 @@ ipcMain.on('close', () => {
   app.quit(); // 退出应用
 });
 
+// 监听 'open-config' 事件，打开配置文件
+ipcMain.on('open-config', () => {
+  const configPath = store.path; // Electron Store 的默认配置文件路径
+  if (process.platform === 'linux') {
+    exec(`xdg-open "${configPath}"`, (error) => {
+      if (error) {
+        console.error(`打开文件出错: ${error.message}`);
+      }
+    });
+  } else if (process.platform === 'win32') {
+    exec(`start "" "${configPath}"`, (error) => {
+      if (error) {
+        console.error(`打开文件出错: ${error.message}`);
+      }
+    });
+  }
+});
+
 ipcMain.on('save-settings', (event, settings) => {
   console.log('保存设置:', settings);
 
@@ -139,6 +216,8 @@ ipcMain.on('save-settings', (event, settings) => {
   }
 });
 
+
+
 if (process.platform === 'win32') {
   // 应用是否打包
   if (app.isPackaged) {
@@ -149,7 +228,9 @@ if (process.platform === 'win32') {
   }
 }
 
+
 app.whenReady().then(() => {
+  initConfig();
   createWindow();
   createTray();
 

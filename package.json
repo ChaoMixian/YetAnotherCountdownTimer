@@ -1,6 +1,6 @@
 {
   "name": "yet-another-countdown-timer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Yet another desktop countdown timer.",
   "main": "src/main.js",
   "scripts": {
