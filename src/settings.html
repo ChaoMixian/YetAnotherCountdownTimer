@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .strikethrough-text {
+            font-size: 24px;
+            color: hotpink;
+            text-decoration: line-through; /* 划掉效果 */
+        }
+
+        button {
+            color: blueviolet;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,6 +26,7 @@
         <label for="auto-start">开机自启动</label>
         <input type="checkbox" id="auto-start">
     </form>
+    <div class="strikethrough-text">炒米线不爱吃米线爱炒米线</div>
     <button id="save-settings">保存</button>
     <button id="open-config">打开配置文件</button>
     <script src="settings.js"></script>
