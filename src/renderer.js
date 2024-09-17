@@ -33,10 +33,10 @@ function calculateCountdown(targetDate) {
   return `
     <span class="countdown">
         <span class="days">${days} 日</span> 
-        <span class="weeks">${weeks} 星期</span><br>
-        <span class="hours">${hours} 时</span> 
-        <span class="minutes">${minutes} 分</span> 
+        <span class="hours">${hours} 时</span>
+        <span class="minutes">${minutes} 分</span> <br>
         <span class="seconds">${seconds} 秒</span>
+        <span class="weeks">共 ${weeks} 星期</span>
     </span>
 `;
 
