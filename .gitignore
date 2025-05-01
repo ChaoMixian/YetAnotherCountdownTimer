@@ -1,5 +1,6 @@
 bin/
 obj/
+Release/
 
 # Ignore IDE specific files
 .vscode/
