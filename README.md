@@ -1,9 +1,11 @@
-# 又一个倒计时 | YACT
+# 又一个倒计时 | YACT (Next)
 > *Yet Another Countdown Timer  <br> 还  另一个  桌面   倒数   计时器*
 
 ![Version](https://img.shields.io/github/v/release/ChaoMixian/YetAnotherCountdownTimer.svg)
 ![Language](https://img.shields.io/badge/Language-JavaScript-yellow)
 ![BuildSuccess](https://img.shields.io/badge/build-success-green)
+
+### 注意：你正在查看 **Next** 分支，这是YACT的最新版本，使用 **.NET 6.0** 构建
 
 **Yet Another Countdown Timer (YACT)** 是*又*一个桌面倒计时工具，旨在帮助用户跟踪重要的日期和事件。它具有简单的界面和基本的功能，适合日常使用。
 
@@ -11,7 +13,7 @@
 
 ## 功能|Features
 
-- **透明和自定义窗口**：提供半透明和可自定义的窗口，极简美观
+- **简洁美观的窗口**：提供优雅易读的窗口，极简美观
 - **开机自启动**：可设置应用程序在系统启动时自动运行。
 - **托盘功能**：支持系统托盘图标，方便用户快速访问。
 - **窗口置顶**：可以将倒计时窗口置顶，确保其始终可见。
@@ -29,24 +31,24 @@
    git clone https://github.com/ChaoMixian/YetAnotherCountdownTimer.git
    cd YetAnotherCountdownTimer
    ```
+   切换到 **Next** 分支
+   ```bash
+   git checkout Next
+   ```
 
 2. **安装依赖**
 
-   ```bash
-   npm install
-   ```
+   自行配置好 **.NET 6.0** 开发环境
 
 3. **运行应用**
 
    ```bash
-   npm start
+   dotnet run
    ```
 
 
 ## 截图|Screenshot
-
-![demo](demo.png)
-![screenshot](screenshot.png)
+![screenshot](demo.png)
 
 ## 贡献|Devotion
 

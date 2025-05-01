@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <AssemblyName>YetAnotherCountdownTimerNext</AssemblyName>
+    <RootNamespace>YetAnotherCountdownTimerNext</RootNamespace>
+    <!-- 单文件发布配置 -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <DebugType>embedded</DebugType>
+    <!-- 资源处理配置 -->
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 正确设置图标资源 -->
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
+
+  <!-- 确保发布时包含图标文件 -->
+  <ItemGroup>
+    <Content Include="Resources\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <!-- 针对单文件发布的额外优化 -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+    <PublishTrimmed>false</PublishTrimmed>
+    <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile>
+  </PropertyGroup>
+</Project>
