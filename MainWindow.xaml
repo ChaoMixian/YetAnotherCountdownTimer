@@ -16,262 +16,262 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Loaded="Window_Loaded">
 
-    <Window.Resources>
-        <!-- Gradient colors -->
-        <LinearGradientBrush x:Key="BackgroundGradient"
-                StartPoint="0,0"
-                EndPoint="1,1">
-            <GradientStop Color="#F0F9FF"
-                    Offset="0.0"/>
-            <GradientStop Color="#E1F1FF"
-                    Offset="0.5"/>
-            <GradientStop Color="#D2E9FF"
-                    Offset="1.0"/>
-        </LinearGradientBrush>
+        <Window.Resources>
+                <!-- Gradient colors -->
+                <LinearGradientBrush x:Key="BackgroundGradient"
+                                     StartPoint="0,0"
+                                     EndPoint="1,1">
+                        <GradientStop Color="#F0F9FF"
+                                      Offset="0.0"/>
+                        <GradientStop Color="#E1F1FF"
+                                      Offset="0.5"/>
+                        <GradientStop Color="#D2E9FF"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
 
-        <LinearGradientBrush x:Key="NumberBackgroundGradient"
-                StartPoint="0,0"
-                EndPoint="1,1">
-            <GradientStop Color="#6A98F0"
-                    Offset="0.0"/>
-            <GradientStop Color="#4C8AE6"
-                    Offset="1.0"/>
-        </LinearGradientBrush>
+                <LinearGradientBrush x:Key="NumberBackgroundGradient"
+                                     StartPoint="0,0"
+                                     EndPoint="1,1">
+                        <GradientStop Color="#6A98F0"
+                                      Offset="0.0"/>
+                        <GradientStop Color="#4C8AE6"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
 
-        <!-- Button style -->
-        <Style x:Key="IconButtonStyle"
-                TargetType="Button">
-            <Setter Property="Background"
-                    Value="Transparent"/>
-            <Setter Property="BorderThickness"
-                    Value="0"/>
-            <Setter Property="Width"
-                    Value="30"/>
-            <Setter Property="Height"
-                    Value="30"/>
-            <Setter Property="Margin"
-                    Value="5"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="15">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                    Value="True">
-                                <Setter Property="Background"
-                                        Value="#22000000"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed"
-                                    Value="True">
-                                <Setter Property="Background"
-                                        Value="#44000000"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                <!-- Button style -->
+                <Style x:Key="IconButtonStyle"
+                       TargetType="Button">
+                        <Setter Property="Background"
+                                Value="Transparent"/>
+                        <Setter Property="BorderThickness"
+                                Value="0"/>
+                        <Setter Property="Width"
+                                Value="30"/>
+                        <Setter Property="Height"
+                                Value="30"/>
+                        <Setter Property="Margin"
+                                Value="5"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                        <Setter Property="Template">
+                                <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        CornerRadius="15">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver"
+                                                                 Value="True">
+                                                                <Setter Property="Background"
+                                                                        Value="#22000000"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed"
+                                                                 Value="True">
+                                                                <Setter Property="Background"
+                                                                        Value="#44000000"/>
+                                                        </Trigger>
+                                                </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                </Setter.Value>
+                        </Setter>
+                </Style>
 
-        <!-- Number block style -->
-        <Style x:Key="NumberBlockStyle"
-                TargetType="Border">
-            <Setter Property="Background"
-                    Value="{StaticResource NumberBackgroundGradient}"/>
-            <Setter Property="CornerRadius"
-                    Value="8"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="2"
-                            BlurRadius="4"
-                            Opacity="0.3"
-                            Color="#555555"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+                <!-- Number block style -->
+                <Style x:Key="NumberBlockStyle"
+                       TargetType="Border">
+                        <Setter Property="Background"
+                                Value="{StaticResource NumberBackgroundGradient}"/>
+                        <Setter Property="CornerRadius"
+                                Value="8"/>
+                        <Setter Property="Effect">
+                                <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="2"
+                                                          BlurRadius="4"
+                                                          Opacity="0.3"
+                                                          Color="#555555"/>
+                                </Setter.Value>
+                        </Setter>
+                </Style>
+        </Window.Resources>
 
-    <Border CornerRadius="15"
-            Background="{StaticResource BackgroundGradient}"
-            Margin="5">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="15"
-                    ShadowDepth="2"
-                    Opacity="0.3"
-                    Color="#555555"/>
-        </Border.Effect>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Title Bar with Controls -->
-            <Grid Grid.Row="0"
-                    Height="40">
-                <TextBlock Text="倒计时"
-                        Foreground="#3070C0"
-                        FontSize="16"
-                        FontWeight="Bold"
-                           VerticalAlignment="Center"
-                        Margin="15,0,0,0"/>
-
-                <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                    <Button x:Name="SettingsButton"
-                            Style="{StaticResource IconButtonStyle}"
-                            Click="SettingsButton_Click">
-                        <TextBlock Text="⚙"
-                                FontSize="16"
-                                Foreground="#3070C0"/>
-                    </Button>
-                    <Button x:Name="PinButton"
-                            Style="{StaticResource IconButtonStyle}"
-                            Click="PinButton_Click">
-                        <TextBlock x:Name="PinIcon"
-                                Text="📌"
-                                FontSize="16"
-                                Foreground="#3070C0"/>
-                    </Button>
-                    <Button x:Name="CloseButton"
-                            Style="{StaticResource IconButtonStyle}"
-                            Click="CloseButton_Click">
-                        <TextBlock Text="✖"
-                                FontSize="16"
-                                Foreground="#3070C0"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-
-            <!-- Countdown Content -->
-            <StackPanel Grid.Row="1"
-                    Margin="15,0,15,15">
-                <TextBlock x:Name="CountdownTitle"
-                        Text="距离高考还有"
-                        Foreground="#3070C0"
-                           FontSize="28"
-                        FontWeight="Bold"
-                        Margin="0,0,0,12"
-                        TextAlignment="Center"/>
+        <Border CornerRadius="15"
+                Background="{StaticResource BackgroundGradient}"
+                Margin="5">
+                <Border.Effect>
+                        <DropShadowEffect BlurRadius="15"
+                                          ShadowDepth="2"
+                                          Opacity="0.3"
+                                          Color="#555555"/>
+                </Border.Effect>
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Days -->
-                    <StackPanel Grid.Column="0"
-                            Margin="5">
-                        <Border Style="{StaticResource NumberBlockStyle}"
-                                Padding="0,5">
-                            <TextBlock x:Name="DaysText"
-                                    Text="36"
-                                    Foreground="White"
-                                       FontSize="26"
-                                    FontWeight="Bold"
-                                    HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="天"
-                                Foreground="#3070C0"
-                                FontSize="14"
-                                   HorizontalAlignment="Center"
-                                Margin="0,6,0,0"
-                                FontWeight="SemiBold"/>
-                    </StackPanel>
+                        <!-- Title Bar with Controls -->
+                        <Grid Grid.Row="0"
+                              Height="40">
+                                <TextBlock Text="倒计时"
+                                           Foreground="#3070C0"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center"
+                                           Margin="15,0,0,0"/>
 
-                    <!-- Hours -->
-                    <StackPanel Grid.Column="1"
-                            Margin="5">
-                        <Border Style="{StaticResource NumberBlockStyle}"
-                                Padding="0,5">
-                            <TextBlock x:Name="HoursText"
-                                    Text="04"
-                                    Foreground="White"
-                                       FontSize="26"
-                                    FontWeight="Bold"
-                                    HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="时"
-                                Foreground="#3070C0"
-                                FontSize="14"
-                                   HorizontalAlignment="Center"
-                                Margin="0,6,0,0"
-                                FontWeight="SemiBold"/>
-                    </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Right">
+                                        <Button x:Name="SettingsButton"
+                                                Style="{StaticResource IconButtonStyle}"
+                                                Click="SettingsButton_Click">
+                                                <TextBlock Text="⚙"
+                                                           FontSize="16"
+                                                           Foreground="#3070C0"/>
+                                        </Button>
+                                        <Button x:Name="PinButton"
+                                                Style="{StaticResource IconButtonStyle}"
+                                                Click="PinButton_Click">
+                                                <TextBlock x:Name="PinIcon"
+                                                           Text="📌"
+                                                           FontSize="16"
+                                                           Foreground="#3070C0"/>
+                                        </Button>
+                                        <Button x:Name="CloseButton"
+                                                Style="{StaticResource IconButtonStyle}"
+                                                Click="CloseButton_Click">
+                                                <TextBlock Text="✖"
+                                                           FontSize="16"
+                                                           Foreground="#3070C0"/>
+                                        </Button>
+                                </StackPanel>
+                        </Grid>
 
-                    <!-- Minutes -->
-                    <StackPanel Grid.Column="2"
-                            Margin="5">
-                        <Border Style="{StaticResource NumberBlockStyle}"
-                                Padding="0,5">
-                            <TextBlock x:Name="MinutesText"
-                                    Text="52"
-                                    Foreground="White"
-                                       FontSize="26"
-                                    FontWeight="Bold"
-                                    HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="分"
-                                Foreground="#3070C0"
-                                FontSize="14"
-                                   HorizontalAlignment="Center"
-                                Margin="0,6,0,0"
-                                FontWeight="SemiBold"/>
-                    </StackPanel>
+                        <!-- Countdown Content -->
+                        <StackPanel Grid.Row="1"
+                                    Margin="15,0,15,15">
+                                <TextBlock x:Name="CountdownTitle"
+                                           Text="距离高考还有"
+                                           Foreground="#3070C0"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Margin="0,0,0,12"
+                                           TextAlignment="Center"/>
 
-                    <!-- Seconds -->
-                    <StackPanel Grid.Column="3"
-                            Margin="5">
-                        <Border Style="{StaticResource NumberBlockStyle}"
-                                Padding="0,5">
-                            <TextBlock x:Name="SecondsText"
-                                    Text="03"
-                                    Foreground="White"
-                                       FontSize="26"
-                                    FontWeight="Bold"
-                                    HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="秒"
-                                Foreground="#3070C0"
-                                FontSize="14"
-                                   HorizontalAlignment="Center"
-                                Margin="0,6,0,0"
-                                FontWeight="SemiBold"/>
-                    </StackPanel>
+                                <Grid>
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Days -->
+                                        <StackPanel Grid.Column="0"
+                                                    Margin="5">
+                                                <Border Style="{StaticResource NumberBlockStyle}"
+                                                        Padding="0,5">
+                                                        <TextBlock x:Name="DaysText"
+                                                                   Text="36"
+                                                                   Foreground="White"
+                                                                   FontSize="26"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="天"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,6,0,0"
+                                                           FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <!-- Hours -->
+                                        <StackPanel Grid.Column="1"
+                                                    Margin="5">
+                                                <Border Style="{StaticResource NumberBlockStyle}"
+                                                        Padding="0,5">
+                                                        <TextBlock x:Name="HoursText"
+                                                                   Text="04"
+                                                                   Foreground="White"
+                                                                   FontSize="26"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="时"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,6,0,0"
+                                                           FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <!-- Minutes -->
+                                        <StackPanel Grid.Column="2"
+                                                    Margin="5">
+                                                <Border Style="{StaticResource NumberBlockStyle}"
+                                                        Padding="0,5">
+                                                        <TextBlock x:Name="MinutesText"
+                                                                   Text="52"
+                                                                   Foreground="White"
+                                                                   FontSize="26"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="分"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,6,0,0"
+                                                           FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <!-- Seconds -->
+                                        <StackPanel Grid.Column="3"
+                                                    Margin="5">
+                                                <Border Style="{StaticResource NumberBlockStyle}"
+                                                        Padding="0,5">
+                                                        <TextBlock x:Name="SecondsText"
+                                                                   Text="03"
+                                                                   Foreground="White"
+                                                                   FontSize="26"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="秒"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="0,6,0,0"
+                                                           FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                </Grid>
+
+                                <!-- Date and Time -->
+                                <Border Background="#F0F8FF"
+                                        CornerRadius="8"
+                                        Margin="0,2,0,0"
+                                        Padding="10,5">
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                                <TextBlock x:Name="DateText"
+                                                           Text="2025年05月01日"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"/>
+                                                <TextBlock Text=" | "
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"/>
+                                                <TextBlock x:Name="TimeText"
+                                                           Text="19:07:56"
+                                                           Foreground="#3070C0"
+                                                           FontSize="14"
+                                                           HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                </Border>
+                        </StackPanel>
                 </Grid>
-
-                <!-- Date and Time -->
-                <Border Background="#F0F8FF"
-                        CornerRadius="8"
-                        Margin="0,2,0,0"
-                        Padding="10,5">
-                    <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                        <TextBlock x:Name="DateText"
-                                Text="2025年05月01日"
-                                Foreground="#3070C0"
-                                   FontSize="14"
-                                HorizontalAlignment="Center"/>
-                        <TextBlock Text=" | "
-                                Foreground="#3070C0"
-                                FontSize="14"/>
-                        <TextBlock x:Name="TimeText"
-                                Text="19:07:56"
-                                Foreground="#3070C0"
-                                   FontSize="14"
-                                HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </Grid>
-    </Border>
+        </Border>
 </Window>
